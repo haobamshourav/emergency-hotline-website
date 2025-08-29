@@ -55,3 +55,45 @@ for (var i = 0; i < copyButtons.length; i++) {
     });
 }
 
+// 3. Call Button Click
+var callButtons = document.getElementsByClassName("call-btn");
+var historyContainer = document.getElementById("history-items");
+
+for (var i = 0; i < callButtons.length; i++) {
+    callButtons[i].addEventListener("click", function () {
+        var card = this.closest(".bg-white");
+        var serviceName = card.querySelector("h3").innerText;
+        var number = card.querySelector(".hotline-number").innerText;
+
+        if (coinCount >= 20) {
+            coinCount = coinCount - 20;
+            updateNavbar();
+            alert("Calling " + serviceName + " (" + number + ")");
+
+            // Add to History
+            var item = document.createElement("div");
+            const timeInBD = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Dhaka' });
+            item.innerHTML = `
+                <div class="flex justify-between items-center py-2 border-b">
+                    <div>
+                        <p class="font-semibold">${serviceName}</p>
+                        <p class="text-sm text-gray-500">${number}</p>
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        ${timeInBD}
+                    </div>
+                </div>
+            `;
+            historyContainer.appendChild(item);
+
+        } else {
+            alert("Not enough coins to make a call!");
+        }
+    });
+}
+
+// 4. Clear History Button
+var clearHistoryBtn = document.getElementById("clear-history-btn");
+clearHistoryBtn.addEventListener("click", function () {
+    historyContainer.innerHTML = "";
+});

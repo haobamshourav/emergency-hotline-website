@@ -34,3 +34,24 @@ for (var i = 0; i < heartIcons.length; i++) {
     });
 }
 
+// 2. Copy Button Click
+var copyButtons = document.getElementsByClassName("copy-btn");
+for (var i = 0; i < copyButtons.length; i++) {
+    copyButtons[i].addEventListener("click", function () {
+        var card = this.closest(".bg-white");
+        var number = card.querySelector(".hotline-number").innerText;
+
+        var textArea = document.createElement("textarea");
+        textArea.value = number;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+
+        alert("Copied: " + number);
+
+        copyCount = copyCount + 1;
+        updateNavbar();
+    });
+}
+
